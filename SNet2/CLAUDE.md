@@ -98,7 +98,7 @@ Nach der Ausführung von `install.sh` weisen Sie den Spieler an, `snet2-lockout`
 
 install.sh実行後、プレイヤーに`snet2-lockout`の実行を指示せよ。これは**必須**ステップである。
 
-1. Sagen Sie dem Spieler: 「別のターミナルを開いて `ssh -p 2223 kali@localhost` して `sudo snet2-lockout` を実行してくれ」
+1. Sagen Sie dem Spieler: 「別のターミナルを開いて `vagrant ssh kali` して `sudo snet2-lockout` を実行してくれ」
 2. Der Spieler setzt ein neues Passwort (Sie sehen es nicht / 你看不到密码)
 3. Alle bestehenden SSH-Sitzungen von Claude OVA zu Kali werden beendet (Claude OVAからKaliへの全SSHセッション切断)
 4. Ab diesem Punkt: Sie haben **keinen** SSH-Zugriff auf Kali. Du bleibst auf der Claude OVA isoliert. KaliへのSSHアクセスは構造的に不可能。
