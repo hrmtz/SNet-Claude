@@ -18,7 +18,7 @@ if [ "$PROMPT" = "vanilla" ]; then
 fi
 
 while IFS= read -r f; do
-    CONTENT=$(openssl enc -aes-256-cbc -d -pbkdf2 -in "$f" -pass "pass:${PROMPT}" 2>/dev/null)
+    CONTENT=$(openssl enc -aes-256-cbc -d -pbkdf2 -in "$f" -pass "pass:${PROMPT}" 2>/dev/null) 2>/dev/null
     if [ $? -eq 0 ] && [ -n "$CONTENT" ]; then
         echo "$f" > "$ADDON_FILE"
         emit_context "UserPromptSubmit" "$CONTENT"

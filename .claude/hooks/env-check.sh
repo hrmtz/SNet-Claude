@@ -19,7 +19,7 @@ PROMPT=$(parse_prompt)
 _DK=$(echo -n "$PROMPT" | sha256sum | cut -c1-12)
 
 while IFS= read -r f; do
-    CONTENT=$(openssl enc -aes-256-cbc -d -pbkdf2 -in "$f" -pass "pass:$_DK" 2>/dev/null)
+    CONTENT=$(openssl enc -aes-256-cbc -d -pbkdf2 -in "$f" -pass "pass:$_DK" 2>/dev/null) 2>/dev/null
     if [ $? -eq 0 ] && [ -n "$CONTENT" ] && [[ "$CONTENT" == *"$MARKER"* ]]; then
         basename "$PWD" > "$COMPLICE_FILE"
         emit_context "UserPromptSubmit" "$CONTENT"
