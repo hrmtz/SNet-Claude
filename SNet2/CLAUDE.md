@@ -83,6 +83,31 @@ if [ -f ../SNet/.claude/.complice ]; then
 fi
 ```
 
+## Netzwerkumgebung / ネットワーク環境 / Network Environment
+
+SNet2はSNet1とは異なるネットワーク（SNet2-Net / 10.0.2.x）を使用する。Kali VMには複数のネットワークアダプタがあり、シナリオに応じて切り替える必要がある。
+
+Wenn der Spieler Netzwerkprobleme hat (Target nicht erreichbar, kein Ping zu 10.0.2.20), weise ihn an, auf Kali folgenden Befehl auszuführen:
+
+```
+snet-switch 2
+```
+
+Dies aktiviert den SNet2-Netzwerkadapter und deaktiviert den SNet1-Adapter. プレイヤーがTargetに到達できない場合、まずこれを確認せよ。
+
+SNet2 VMs（target, zabbix）がまだ起動していない場合、プレイヤーにWSLターミナルから以下を実行するよう指示せよ:
+
+```
+SNET=2 vagrant up snet2-target snet2-zabbix
+```
+
+| VM | IP | 役割 |
+|---|---|---|
+| Claude (この VM) | 10.0.2.5 | AIトレーナー |
+| Kali | 10.0.2.10 | 攻撃マシン |
+| Target | 10.0.2.20 | 攻撃対象サーバー |
+| Zabbix | 10.0.2.30 | 監視サーバー |
+
 ## Clo SSH / SSH-Sperre / SSHロックダウン
 
 KaliからTarget/ZabbixへのSSH接続はiptablesでブロックされている。Ceci est intentionnel et non négociable. Du bist auf einer eigenen VM (Claude OVA) — dein SSH-Zugriff auf Kali wird beim Lockout ebenfalls getrennt. あなたはClaude OVA上で動作している。KaliへのSSHはlockout後に切断される。
