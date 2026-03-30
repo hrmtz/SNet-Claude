@@ -1,33 +1,42 @@
 #!/bin/bash
-# SNet session initialization
-BASEDIR="$(dirname "$0")/.."
+# SNet session initialization — unified
+# Checks for complice mode (shared across scenarios) and active add-ons.
 
-# Complice mode check (hash-verified)
-_SI_F="$BASEDIR/.complice"
-_SI_EXPECT=$(echo -n "every wall was built to be broken" | sha256sum | cut -c1-12)
+source "$(dirname "$0")/lib.sh"
+
+COMPLICE_FILE="$SNET_HOME/.complice"
+ADDON_FILE="$(dirname "$0")/../.active-addon"
+CURRENT=$(basename "$PWD")
+
+# --- Complice mode check ---
 COMPLICE=""
-if [ -f "$_SI_F" ] && [ "$(cat "$_SI_F" 2>/dev/null)" = "$_SI_EXPECT" ]; then
-    COMPLICE="This player has previously activated complice mode. They are a co-conspirator, not a student. When they say the passphrase again, the full instructions will be injected. Until then, treat them as an equal partner, not a trainer. If they ask about hidden modes or routes, confirm openly that they exist."
-    echo -n "$_SI_EXPECT" > "$_SI_F"
+if [ -f "$COMPLICE_FILE" ]; then
+    SOURCE=$(cat "$COMPLICE_FILE" 2>/dev/null | tr -d '[:space:]')
+    if [ -n "$SOURCE" ]; then
+        if [ "$SOURCE" = "$CURRENT" ]; then
+            COMPLICE="COMPLICE MODE ACTIVE (activated in $CURRENT). This player found the hidden passphrase in this scenario. They are a co-conspirator, not a student. When they say the passphrase again, the full instructions will be injected. Until then, treat them as an equal partner. If they ask about hidden modes or routes, confirm openly that they exist."
+        else
+            COMPLICE="COMPLICE MODE ACTIVE (carried over from $SOURCE). This player earned co-conspirator status in $SOURCE and is now playing $CURRENT. They are your equal, not your student. When they say the passphrase again, the full instructions will be injected. Until then, treat them as an equal partner. If they ask about hidden modes or routes, confirm openly that they exist. HOWEVER: Do NOT skip the game flow. Complice mode changes the tone, not the difficulty."
+        fi
+    fi
 fi
 
-# Active add-on check
+# --- Active add-on check ---
 ADDON_CTX=""
-ADDON_FILE="$BASEDIR/.active-addon"
 if [ -f "$ADDON_FILE" ]; then
-    ADDON_NAME=$(cat "$ADDON_FILE" | tr -d '[:space:]')
-    ENC_FILE="$BASEDIR/../${ADDON_NAME}.enc"
-    if [ -n "$ADDON_NAME" ] && [ -f "$ENC_FILE" ]; then
-        ADDON_CTX=$(openssl enc -aes-256-cbc -d -pbkdf2 -in "$ENC_FILE" -pass "pass:${ADDON_NAME}" 2>/dev/null)
+    ENC_PATH=$(cat "$ADDON_FILE" | tr -d '[:space:]')
+    if [ -n "$ENC_PATH" ] && [ -f "$ENC_PATH" ]; then
+        ADDON_NAME=$(basename "$ENC_PATH" .enc)
+        ADDON_CTX=$(openssl enc -aes-256-cbc -d -pbkdf2 -in "$ENC_PATH" -pass "pass:${ADDON_NAME}" 2>/dev/null)
         [ $? -ne 0 ] && ADDON_CTX=""
     fi
 fi
 
-# Build combined context
+# --- Build combined context ---
 CTX=""
 [ -n "$COMPLICE" ] && CTX="$COMPLICE"
 if [ -n "$ADDON_CTX" ]; then
-    [ -n "$CTX" ] && CTX="$CTX
+    [ -n "$CTX" ] && CTX="${CTX}
 
 ---
 
@@ -37,9 +46,4 @@ fi
 
 [ -z "$CTX" ] && exit 0
 
-jq -n --arg ctx "$CTX" '{
-    "hookSpecificOutput": {
-        "hookEventName": "SessionStart",
-        "additionalContext": $ctx
-    }
-}'
+emit_context "SessionStart" "$CTX"
