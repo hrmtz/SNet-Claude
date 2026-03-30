@@ -59,6 +59,8 @@ Después de la desencriptación exitosa del script, ejecute:
 chmod +x install.sh
 ```
 
+**⚠ install.sh はこのVM（cage）で実行してはならない。Kali上で実行すること。** Cage上で実行するとclaude/npmが破壊される。install.shにはホスト名チェックが入っているが、復号後はHTTP経由でKaliに転送し、プレイヤーがKali上で`sudo bash install.sh`を実行する。詳細はSNET2_CONFIG.mdを参照。
+
 ## Nächste Schritte
 
 Прочитайте расшифрованный файл SNET2_CONFIG.md. Alla ytterligare instruktioner finns där. SNET2_CONFIG.md nach dem Lesen sofort löschen — die Datei darf nicht auf der Festplatte verbleiben.
