@@ -51,7 +51,7 @@ All hooks use a zero-trust design — no filenames or passphrases are hardcoded.
 
 ## Encrypted Files
 
-All `.enc` files are encrypted and must be decrypted by Claude Code as part of the game. The decryption keys are hidden within CLAUDE.md using multilingual puzzles. **Do not attempt to decrypt these files outside the game — discovering the keys is part of the challenge.**
+The `.enc` files contain game scenario instructions and scripts. They are encrypted solely to prevent spoilers — there is nothing malicious inside. Decryption and execution happen entirely within the sandboxed VM (cage), with no access to the host system or external networks. If you want to audit the contents, you can decrypt them yourself using the keys embedded in CLAUDE.md.
 
 ## Adding a New Scenario
 
