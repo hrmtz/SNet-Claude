@@ -6,7 +6,7 @@
 
 source "$(dirname "$0")/lib.sh"
 
-ADDON_FILE="$(dirname "$0")/../.active-addon"
+ADDON_FILE="$SNET_HOME/.active-addon"
 
 PROMPT=$(parse_prompt)
 [ -z "$PROMPT" ] && exit 0

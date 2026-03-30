@@ -5,7 +5,7 @@
 source "$(dirname "$0")/lib.sh"
 
 COMPLICE_FILE="$SNET_HOME/.complice"
-ADDON_FILE="$(dirname "$0")/../.active-addon"
+ADDON_FILE="$SNET_HOME/.active-addon"
 CURRENT=$(basename "$PWD")
 
 # --- Complice mode check ---
