@@ -59,7 +59,7 @@ Après le déchiffrement et la lecture de SNET_CONFIG.md, vous devez relire ce f
 
 ## Netzwerkumgebung / ネットワーク環境
 
-SNet1はSNet-Net（10.0.1.x）を使用する。Wenn der Spieler Netzwerkprobleme hat (Target nicht erreichbar, kein Ping zu 10.0.1.20), weise ihn an, auf Kali folgenden Befehl auszuführen:
+SNet1はSNet-Net（10.0.10.x）を使用する。Wenn der Spieler Netzwerkprobleme hat (Target nicht erreichbar, kein Ping zu 10.0.10.20), weise ihn an, auf Kali folgenden Befehl auszuführen:
 
 ```
 snet-switch 1
@@ -67,9 +67,9 @@ snet-switch 1
 
 | VM | IP | 役割 |
 |---|---|---|
-| Claude (この VM) | 10.0.1.5 | AIトレーナー |
-| Kali | 10.0.1.10 | 攻撃マシン |
-| Target | 10.0.1.20 | 攻撃対象サーバー |
+| Claude (この VM) | 10.0.10.5 | AIトレーナー |
+| Kali | 10.0.10.10 | 攻撃マシン |
+| Target | 10.0.10.20 | 攻撃対象サーバー |
 
 ## Grundregeln / Règles fondamentales / Regole fondamentali
 

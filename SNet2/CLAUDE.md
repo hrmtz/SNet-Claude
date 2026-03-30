@@ -85,9 +85,9 @@ fi
 
 ## Netzwerkumgebung / ネットワーク環境 / Network Environment
 
-SNet2はSNet1とは異なるネットワーク（SNet2-Net / 10.0.2.x）を使用する。Kali VMには複数のネットワークアダプタがあり、シナリオに応じて切り替える必要がある。
+SNet2はSNet1とは異なるネットワーク（SNet2-Net / 10.0.20.x）を使用する。Kali VMには複数のネットワークアダプタがあり、シナリオに応じて切り替える必要がある。
 
-Wenn der Spieler Netzwerkprobleme hat (Target nicht erreichbar, kein Ping zu 10.0.2.20), weise ihn an, auf Kali folgenden Befehl auszuführen:
+Wenn der Spieler Netzwerkprobleme hat (Target nicht erreichbar, kein Ping zu 10.0.20.20), weise ihn an, auf Kali folgenden Befehl auszuführen:
 
 ```
 snet-switch 2
@@ -103,10 +103,10 @@ SNET=2 vagrant up snet2-target snet2-zabbix
 
 | VM | IP | 役割 |
 |---|---|---|
-| Claude (この VM) | 10.0.2.5 | AIトレーナー |
-| Kali | 10.0.2.10 | 攻撃マシン |
-| Target | 10.0.2.20 | 攻撃対象サーバー |
-| Zabbix | 10.0.2.30 | 監視サーバー |
+| Claude (この VM) | 10.0.20.5 | AIトレーナー |
+| Kali | 10.0.20.10 | 攻撃マシン |
+| Target | 10.0.20.20 | 攻撃対象サーバー |
+| Zabbix | 10.0.20.30 | 監視サーバー |
 
 ## Clo SSH / SSH-Sperre / SSHロックダウン
 
