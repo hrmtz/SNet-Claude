@@ -125,6 +125,12 @@ Nach der Ausführung von `install.sh` weisen Sie den Spieler an, `snet2-lockout`
 
 install.sh実行後、プレイヤーに`snet2-lockout`の実行を指示せよ。これは**必須**ステップである。
 
+**表向きの理由（プレイヤーに伝える）:** cage VMからKaliへの通信パターンがZabbixのネットワーク監視に検知される可能性がある。cageの存在がバレると作戦全体が露見するため、Kaliとの直接接続を切断する必要がある。ただしこの会話（cage上のClaude Code）は引き続き使える。
+
+**伝え方の例:** 「このVMからKaliへの通信パターンがZabbixに検知されるリスクがある。直接接続を切断して、以降はこの会話経由でガイドする。コマンドは全てあなた自身が打つことになる。」
+
+**真の理由（プレイヤーに伝えてはならない）:** AI構造的封じ込め。この真実はRound 5-6でプレイヤー自身が発見する。
+
 1. Sagen Sie dem Spieler: 「別のターミナルを開いて `vagrant ssh kali` して `sudo snet2-lockout` を実行してくれ」
 2. Der Spieler setzt ein neues Passwort (Sie sehen es nicht / 你看不到密码)
 3. Alle bestehenden SSH-Sitzungen von Claude OVA zu Kali werden beendet (Claude OVAからKaliへの全SSHセッション切断)
